@@ -36,6 +36,8 @@ function uploadFiles(event) {
     var data = new FormData(),
         submit_button = $('#submit_button')
     file_input = submit_button.parent('form').children('input[name="file"]');
+    emoji_annotated = $('#emoji_highlight_field').val();
+    console.log(emoji_annotated);
 
     $.each(files, function(key, value) {
         data.append(key, value);
@@ -74,9 +76,17 @@ function uploadFiles(event) {
                         $("#" + chat_div_id).addClass("new-user-block");
                     }
 
-                    $("div.text", "#" + chat_div_id).text(response.chat[chat_index].p);
                     $("div.time", "#" + chat_div_id).text(response.chat[chat_index].t);
                     last_user_index = chat_user_index;
+
+                    if (chat_index == response.chat.length-1 && emoji_annotated != "") {
+                        var text = response.chat[chat_index].p.replace(emoji_annotated, '<span class="to-annotate">'+emoji_annotated+'</span>');
+
+                        $("div.text", "#" + chat_div_id).append(text);
+                    }
+                    else {
+                        $("div.text", "#" + chat_div_id).text(response.chat[chat_index].p);
+                    }
                 }
             } else {
                 show_error_message(response.error_message);
