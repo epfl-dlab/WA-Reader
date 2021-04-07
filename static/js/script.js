@@ -72,7 +72,7 @@ function uploadFiles(event) {
                         $("#" + chat_div_id).addClass("alternate-user");
 
                     if (last_user_index != chat_user_index) {
-                        $("div.user", "#" + chat_div_id).text(response.users[chat_user_index]);
+                        //$("div.user", "#" + chat_div_id).text(response.users[chat_user_index]);
                         $("#" + chat_div_id).addClass("new-user-block");
                     }
 
